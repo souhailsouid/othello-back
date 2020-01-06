@@ -1,5 +1,6 @@
 
-const mongoose = require('mongoose');
+/* eslint-disable no-undef */
+const mongoose = require('mongoose')
 
 const GameIASchema = new mongoose.Schema({
   name: {
@@ -7,24 +8,24 @@ const GameIASchema = new mongoose.Schema({
     required: true
   },
   savePositions: {
-    type: Array,
-   
+    type: Array
+
   },
   saveScorePlayer1: {
-    type: String,
-   
+    type: String
+
   },
   saveScoreIA: {
-    type: String,
-   
+    type: String
+
   },
   saveWinners: {
-      type: String,
+    type: String
   },
   date: {
     type: Date,
     default: Date.now
   }
-});
+})
 
-module.exports = GameIA = mongoose.model('gameIA', GameIASchema);
+module.exports = GameIA = mongoose.model('gameIA', GameIASchema)

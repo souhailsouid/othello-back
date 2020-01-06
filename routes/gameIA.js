@@ -1,43 +1,41 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const GameIA = require('../models/GameIA');
+const GameIA = require('../models/GameIA')
 router.get('/', async (req, res) => {
-    const allGames = await GameIA.find({})
-    res.json(allGames.map(game => game.toJSON()))
-  })
+  const allGames = await GameIA.find({})
+  res.json(allGames.map(game => game.toJSON()))
+})
 
 //   router.get('/ia', async (req, res) => {
 //     const allGames = await GameIA.find({})
 //     console.log(res)
 //     // res.json(allGames.map(game => game.toJSON()))
 //   })
-  router.get('/:id', async (req, res, next) => {
-    try {
-      const foundOnlineGame = await GameIA.findById(req.params.id)
-      if (foundOnlineGame) {
-          
-        res.json(foundOnlineGame.toJSON())
-      } else {
-        res.status(404).end()
-      }
-    } catch (e) {
-      next(e)
+router.get('/:id', async (req, res, next) => {
+  try {
+    const foundOnlineGame = await GameIA.findById(req.params.id)
+    if (foundOnlineGame) {
+      res.json(foundOnlineGame.toJSON())
+    } else {
+      res.status(404).end()
     }
-  })
-  
-router.post('/', async (request, response, next) => {
-   
-    const game = new GameIA({ ...request.body})
-    try {
-      const savedGame = await game.save()
-      response.json(savedGame.toJSON())
-    } catch (exception) {
-      next(exception)
-    }
-  })
+  } catch (e) {
+    next(e)
+  }
+})
 
-  router.put('/:id', async (request, response, next) => {
+router.post('/', async (request, response, next) => {
+  const game = new GameIA({ ...request.body })
+  try {
+    const savedGame = await game.save()
+    response.json(savedGame.toJSON())
+  } catch (exception) {
+    next(exception)
+  }
+})
+
+router.put('/:id', async (request, response, next) => {
   const body = request.body
 
   try {
@@ -48,4 +46,4 @@ router.post('/', async (request, response, next) => {
   }
 })
 
-  module.exports = router;
+module.exports = router

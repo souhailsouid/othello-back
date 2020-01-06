@@ -1,28 +1,23 @@
-
-
-
-
-const express = require('express');
+/* eslint-disable no-console */
+/* eslint-disable import/order */
+const express = require('express')
 const app = express()
-const server = require('http').Server(app);
-const bodyParser = require('body-parser')
+const server = require('http').Server(app)
 const cors = require('cors')
 const config = require('./utils/config')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const logger = require('./utils/logger')
-const io = require('socket.io').listen(server);
-const index = require("./routes/index");
-const users = require("./routes/users")
-const games = require("./routes/game")
-const gamesIA = require("./routes/gameIA")
-const auth = require("./routes/auth")
+const io = require('socket.io').listen(server)
+const index = require('./routes/index')
+const users = require('./routes/users')
+const games = require('./routes/game')
+const gamesIA = require('./routes/gameIA')
+const auth = require('./routes/auth')
 logger.info('connecting to', config.MONGODB_URI)
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
   .then(() => {
     logger.info('connected to MongoDB')
-
-
   })
   .catch((error) => {
     logger.error('error connection to MongoDB:', error.message)
@@ -36,29 +31,23 @@ app.use(express.static('static', {
 }))
 // app.use(bodyParser.json())
 app.use(express.json({ extended: false }))
-app.use("/api/index", index);
-app.use("/api/users", users);
-app.use("/api/auth", auth);
-app.use("/api/games", games);
-app.use("/api/games/ia", gamesIA);
+app.use('/api/index', index)
+app.use('/api/users', users)
+app.use('/api/auth', auth)
+app.use('/api/games', games)
+app.use('/api/games/ia', gamesIA)
 io.on('connection', function (socket) {
-  console.log('a user connected');
+  console.log('a user connected')
   socket.on('message', (message) => {
-    socket.broadcast.emit("message", message)
+    socket.broadcast.emit('message', message)
   }
 
-
-  );
+  )
   socket.on('disconnect', function () {
-    console.log('user disconnected');
-  });
-});
+    console.log('user disconnected')
+  })
+})
 
-
-server.listen(9000, function () {
-  console.log(`Listening on ${server.address().port}`);
-});
-
-
-
-
+server.listen(5000, function () {
+  console.log(`Listening on ${server.address().port}`)
+})

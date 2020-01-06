@@ -1,5 +1,6 @@
 
-const mongoose = require('mongoose');
+/* eslint-disable no-undef */
+const mongoose = require('mongoose')
 
 const GameSchema = new mongoose.Schema({
   name: {
@@ -7,14 +8,14 @@ const GameSchema = new mongoose.Schema({
     required: true
   },
   savePositions: {
-    type: String,
-   
+    type: String
+
   },
 
   date: {
     type: Date,
     default: Date.now
   }
-});
+})
 
-module.exports = Game = mongoose.model('game', GameSchema);
+module.exports = Game = mongoose.model('game', GameSchema)
